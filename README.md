@@ -9,6 +9,8 @@ You must install CUDA Toolkit 12.4 yourself before running anything.
 
 👉 Download it here: NVIDIA CUDA 12.4 Toolkit
 
+https://developer.nvidia.com/cuda-12-4-0-download-archive
+
 Make sure:
 
     Install the CUDA Toolkit only (you don't need all the extras like Nsight).
