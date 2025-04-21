@@ -43,7 +43,7 @@ You may see admin permission popups during installation — say YES to allow the
 
 After installation is complete, you’ll find a new file:
 
-🟢 run.bat
+🟢 Run_FramePack.bat
 
 Double-click run.bat to launch FramePack and enter the Dragon’s Den of AI frame generation!
 🐲 Good luck, brave adventurer.
