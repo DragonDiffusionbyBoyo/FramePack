@@ -3,6 +3,34 @@ setlocal enabledelayedexpansion
 title ✨ Dragon Diffusion FramePack Installer ✨
 echo ✨✨✨ Dragon Diffusion FramePack installation process beginning... ✨✨✨
 
+
+REM -----------------------------------
+REM Step 0: Install wget and curl if missing
+REM -----------------------------------
+echo Step 0: Preparing download warriors (wget and curl)...
+
+where wget >nul 2>nul
+if %errorlevel% neq 0 (
+    echo wget not found, installing...
+    pip install wget
+)
+
+where curl >nul 2>nul
+if %errorlevel% neq 0 (
+    echo curl not found or not available, attempting to install...
+    powershell -Command "Invoke-WebRequest https://curl.se/windows/dl-8.7.1_2/curl-8.7.1_2-win64-mingw.zip -OutFile curl.zip; Expand-Archive curl.zip -DestinationPath curl; Move-Item curl\curl-8.7.1_2-win64-mingw\bin\curl.exe .; del curl.zip; rmdir curl -Recurse"
+)
+
+where curl >nul 2>nul
+if %errorlevel% neq 0 (
+    echo curl installation failed or curl still not found. Please install it manually.
+    pause
+    exit /b
+)
+
+echo Download warriors ready!
+
+
 REM -----------------------------------
 REM Step 1: Check Python 3.10 presence
 REM -----------------------------------
@@ -97,16 +125,24 @@ if errorlevel 1 (
 echo PyTorch summoned, blazing with dragonfire!
 
 REM -----------------------------------
-REM Step 7: Install Triton from URL
+REM Step 7: Summon Triton
 REM -----------------------------------
 echo Step 7: Summoning Triton...
 curl -L -o triton-3.0.0-cp310-cp310-win_amd64.whl https://github.com/woct0rdho/triton-windows/releases/download/v3.1.0-windows.post9/triton-3.0.0-cp310-cp310-win_amd64.whl
-pip install triton-3.0.0-cp310-cp310-win_amd64.whl
-if errorlevel 1 (
-    echo Failed to summon Triton. Please check the downloaded wheel file.
+if exist triton-3.0.0-cp310-cp310-win_amd64.whl (
+    pip install triton-3.0.0-cp310-cp310-win_amd64.whl
+    if errorlevel 1 (
+        echo Failed to summon Triton. Please check the downloaded wheel file.
+        pause
+        exit /b
+    )
+    echo Triton summoned, wielding oceanic might!
+) else (
+    echo Triton wheel not found after download. Check your internet connection.
     pause
     exit /b
 )
+
 echo Triton summoned, wielding oceanic might!
 
 REM -----------------------------------
