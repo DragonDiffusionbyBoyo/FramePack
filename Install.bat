@@ -194,6 +194,27 @@ if errorlevel 1 (
 )
 echo C++ Redistributable forged, strengthening the dragon’s armor!
 
+
+echo Checking for FFmpeg...
+where ffmpeg >nul 2>nul
+if %errorlevel% equ 0 (
+    echo FFmpeg already installed, skipping installation.
+) else (
+    echo Installing FFmpeg to local directory...
+    curl -L -o ffmpeg.zip https://www.gyan.dev/ffmpeg/builds/packages/ffmpeg-7.1-essentials_build.zip
+    powershell -Command "Expand-Archive ffmpeg.zip -DestinationPath ffmpeg"
+    move ffmpeg\ffmpeg-7.1-essentials_build\bin\ffmpeg.exe .\ffmpeg\ffmpeg.exe
+    set "PATH=%PATH%;%CD%\ffmpeg"
+    echo set "PATH=%%PATH%%;%CD%\ffmpeg" >> Activate_Venv.bat
+    rmdir /s /q ffmpeg\ffmpeg-7.1-essentials_build
+    del ffmpeg.zip
+    if errorlevel 1 (
+        echo Failed to install FFmpeg. Please install it manually.
+        pause
+        exit /b
+    )
+    echo FFmpeg installed to local directory, ready for video sorcery!
+
 REM -----------------------------------
 REM Step 11: Clear Triton cache
 REM -----------------------------------
