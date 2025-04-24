@@ -1,5 +1,29 @@
 🐉🔥 Welcome to FramePack — Forked off lllyasviel but then Powered by Dragon Diffusion UK 🔥🐉
 
+
+🐉 Prerequisites: Install Python 3.10.11
+Before running the FramePack installer, you must manually install Python 3.10.11. This ensures compatibility with the dragons of AI animation.
+👉 Steps to install Python 3.10.11:
+
+Download the Python 3.10.11 installer from the official Python website:
+Python 3.10.11 Downloads
+Choose the Windows Installer (64-bit) for most systems.
+
+
+Run the installer and ensure you:
+Check "Add Python 3.10 to PATH" during installation.
+Select "Install for all users" if prompted (requires admin permissions).
+
+
+Verify the installation by opening a command prompt and running:python --version
+
+It should display Python 3.10.11.
+If you have multiple Python versions, ensure Python 3.10.11 is accessible via:py -3.10 --version
+
+
+
+⚠️ Important: FramePack requires Python 3.10.11 specifically. Other versions may cause compatibility issues.
+
 Prepare to ride the dragons of AI animation!
 Before you unleash the beast, please follow these instructions carefully:
 ⚙️ Step 1: Install CUDA 12.4 Manually
