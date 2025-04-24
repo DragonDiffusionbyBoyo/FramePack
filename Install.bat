@@ -160,9 +160,25 @@ if exist requirements.txt (
 echo Dependencies summoned, ready to support the dragon!
 
 REM -----------------------------------
-REM Step 9: Forging C++ Redistributable
+REM Step 9: Summon Windows SDK
 REM -----------------------------------
-echo Step 9: Forging C++ Redistributable...
+echo Step 9: Summoning the Windows SDK to appease Triton’s demands...
+winget install --id Microsoft.WindowsSDK.10.0.26100 --version 10.0.26100.1742 --silent --accept-source-agreements --accept-package-agreements
+if %errorlevel%==0 (
+    echo Windows SDK summoned, fortifying Triton’s oceanic might!
+) else if %errorlevel%==3010 (
+    set RESTART_REQUIRED=1
+    echo Windows SDK summoned, but a restart is needed to fully awaken its power!
+) else (
+    echo Failed to summon Windows SDK. Please check winget and internet connection.
+    pause
+    exit /b
+)
+
+REM -----------------------------------
+REM Step 10: Forging C++ Redistributable
+REM -----------------------------------
+echo Step 10: Forging C++ Redistributable...
 curl -L -o vc_redist.x64.exe https://aka.ms/vs/17/release/vc_redist.x64.exe
 if not exist vc_redist.x64.exe (
     echo Failed to download C++ Redistributable. Please check your internet connection.
@@ -182,9 +198,9 @@ del vc_redist.x64.exe
 echo C++ Redistributable forged, strengthening the dragon’s armor!
 
 REM -----------------------------------
-REM Step 10: Clear Triton cache
+REM Step 11: Clear Triton cache
 REM -----------------------------------
-echo Step 10: Clearing Triton’s ancient cache...
+echo Step 11: Clearing Triton’s ancient cache...
 set TRITON_CACHE=C:\Users\%USERNAME%\.triton\cache
 set TORCHINDUCTOR_CACHE=C:\Users\%USERNAME%\AppData\Local\Temp\torchinductor_%USERNAME%\triton
 if exist "!TRITON_CACHE!" (
@@ -198,9 +214,9 @@ if exist "!TORCHINDUCTOR_CACHE!" (
 echo Triton cache cleared, ready for fresh magic!
 
 REM -----------------------------------
-REM Step 11: Create helper batch files
+REM Step 12: Create helper batch files
 REM -----------------------------------
-echo Step 11: Crafting mighty helper dragons...
+echo Step 12: Crafting mighty helper dragons...
 (
 echo @echo off
 echo call venv\Scripts\activate.bat
@@ -224,15 +240,16 @@ echo pause
 
 echo.
 REM -----------------------------------
-REM Step 12: Check for required restart
+REM Step 13: Check for required restart
 REM -----------------------------------
 if defined RESTART_REQUIRED (
     echo.
-    echo Installation completed, but a system restart is required to finalize setup.
-    echo Please restart your computer manually when ready.
+    echo ✨✨✨ Installation completed, but a system restart is required to unleash the full dragon magic! ✨✨✨
+    echo Please restart your computer when ready to soar with Dragon Diffusion FramePack.
     echo.
+) else (
+    echo ✨✨✨ Installation complete! The dragons are ready to soar! ✨✨✨
 )
-echo ✨✨✨ Installation complete! The dragons are ready to soar! ✨✨✨
 echo Run "Run_FramePack.bat" to begin your journey!
 pause
 cmd.exe /k
