@@ -160,16 +160,25 @@ if exist requirements.txt (
 echo Dependencies summoned, ready to support the dragon!
 
 REM -----------------------------------
-REM Step 9: Install C++ Redistributable
+REM Step 9: Forging C++ Redistributable
 REM -----------------------------------
 echo Step 9: Forging C++ Redistributable...
 curl -L -o vc_redist.x64.exe https://aka.ms/vs/17/release/vc_redist.x64.exe
-vc_redist.x64.exe /quiet /install
-if errorlevel 1 (
+if not exist vc_redist.x64.exe (
+    echo Failed to download C++ Redistributable. Please check your internet connection.
+    pause
+    exit /b
+)
+vc_redist.x64.exe /quiet /install /norestart
+if %errorlevel%==3010 (
+    set RESTART_REQUIRED=1
+)
+if %errorlevel%==1 (
     echo Failed to forge C++ Redistributable. Please check the installer.
     pause
     exit /b
 )
+del vc_redist.x64.exe
 echo C++ Redistributable forged, strengthening the dragon’s armor!
 
 REM -----------------------------------
@@ -214,6 +223,15 @@ echo pause
 ) > Update_FramePack.bat
 
 echo.
+REM -----------------------------------
+REM Step 12: Check for required restart
+REM -----------------------------------
+if defined RESTART_REQUIRED (
+    echo.
+    echo Installation completed, but a system restart is required to finalize setup.
+    echo Please restart your computer manually when ready.
+    echo.
+)
 echo ✨✨✨ Installation complete! The dragons are ready to soar! ✨✨✨
 echo Run "Run_FramePack.bat" to begin your journey!
 pause
