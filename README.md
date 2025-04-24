@@ -49,8 +49,6 @@ The dragons will handle:
 
     Checking and installing Git
 
-    Checking and installing Python 3.10
-
     Checking and installing Visual Studio Build Tools
 
     Cloning this repo automatically
